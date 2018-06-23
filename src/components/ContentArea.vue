@@ -1,7 +1,7 @@
 <template>
   <div class="content-area">
     <form class="form-todo" v-on:submit="handleForm">
-      <input type="text" name="newtodo" :class="{validate:validate}" placeholder="What you want to do?" v-model="newData.title" v-on:input="handleInput()">
+      <input type="text" autocomplete="off" name="newtodo" :class="{validate:validate}" placeholder="What you want to do?" v-model="newData.title" v-on:input="handleInput()">
       <button type="submit" name="button">+</button>
     </form>
     <ul class="item-lists">
