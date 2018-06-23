@@ -1,7 +1,7 @@
 <template>
   <div class="content-area">
     <form class="form-todo" v-on:submit="handleForm">
-      <input type="text" name="newtodo" placeholder="What you want to do?" v-model="newData.title" >
+      <input type="text" name="newtodo" :class="{validate:validate}" placeholder="What you want to do?" v-model="newData.title" v-on:input="handleInput()">
       <button type="submit" name="button">+</button>
     </form>
     <ul class="item-lists">
@@ -39,20 +39,30 @@ export default {
           title: 'qui ullam ratione quibusdam voluptatem quia omnis',
           done: true
         }
-      ]
+      ],
+      validate: false,
+      touched: false
     }
   },
   methods: {
     handleForm: function(e) {
       e.preventDefault();
-      this.datas = [...this.datas, {title: this.newData.title, done: false}];
-      this.newData = {};
+      if(!this.newData.title) {
+        this.validate = true;
+      } else {
+        this.datas = [...this.datas, {title: this.newData.title, done: false}];
+        this.newData = {};
+        this.validate = false;
+      }
     },
     handleRemove: function(data) {
       this.datas = this.datas.filter(onedata => onedata !== data);
     },
     handleDone: function(data) {
       this.datas.map((onedata,index) => onedata === data ? (onedata.done === false ? onedata.done=true : onedata.done=false) : null);
+    },
+    handleInput: function() {
+      this.validate = false;
     }
   }
 }
@@ -85,6 +95,10 @@ export default {
     -webkit-transition: all .2s;
     -o-transition: .2s all;
     transition: all .2s;
+  }
+
+  input.validate {
+    border-color: #F44336;
   }
 
   form button {
