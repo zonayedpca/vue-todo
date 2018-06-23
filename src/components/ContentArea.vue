@@ -50,7 +50,7 @@ export default {
       if(!this.newData.title) {
         this.validate = true;
       } else {
-        this.datas = [...this.datas, {title: this.newData.title, done: false}];
+        this.datas = [{title: this.newData.title, done: false}, ...this.datas];
         this.newData = {};
         this.validate = false;
       }
